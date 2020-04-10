@@ -1,0 +1,18 @@
+{
+  "source": {
+    "host": "127.0.0.1",
+    "port": 10106,
+    "user": "root",
+    "password": "123456",
+    "db": "gs_robot"
+  },
+  "target": {
+    "host": "127.0.0.1",
+    "port": 10107,
+    "user": "root",
+    "password": "123456",
+    "db": "gs_robot"
+  }
+}
+
+
