@@ -2,6 +2,10 @@
 
 
 class Table(object):
+    """
+    :type __db: entity.Database
+    :type __fields: []entity.Field
+    """
     def __init__(self, name, db):
         self.__name = name
         self.__db = db
@@ -21,6 +25,6 @@ class Table(object):
 
 
 if __name__ == '__main__':
-    table = Table('account','gaussian')
+    table = Table('account', 'gaussian')
     table.fields.append(1)
     print(table.fields)

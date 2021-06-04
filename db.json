@@ -1,17 +1,19 @@
 {
   "source": {
-    "host": "127.0.0.1",
-    "port": 10106,
+    "host": "192.168.133.48",
+    "port": 3308,
     "user": "root",
     "password": "123456",
-    "db": "gs_robot"
+    "database": "master",
+    "charset":"utf8mb4"
   },
   "target": {
-    "host": "127.0.0.1",
-    "port": 10107,
+    "host": "192.168.133.48",
+    "port": 3309,
     "user": "root",
     "password": "123456",
-    "db": "gs_robot"
+    "database": "slave",
+    "charset": "utf8mb4"
   }
 }
 

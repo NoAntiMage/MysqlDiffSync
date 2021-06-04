@@ -2,6 +2,9 @@
 
 
 class Database(object):
+    """
+    :type __tables []entity.Table
+    """
     def __init__(self, config):
         self.__name = None
         self.__tables = list()
@@ -38,7 +41,4 @@ class Database(object):
 
 
 if __name__ == '__main__':
-    db = Database(1)
-    print(db.tables)
-    db.tables.append('wuji')
-    print(db.tables)
+    pass

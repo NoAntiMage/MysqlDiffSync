@@ -5,7 +5,7 @@ import sys
 import os
 import json
 import shutil
-from dao.MysqlDatabaseConnector import MysqlDatabaseConnector
+from db.MysqlDatabaseConnector import MysqlDatabaseConnector
 from service.SchemaComparision import SchemaComparison
 from util.Configer import Configer
 

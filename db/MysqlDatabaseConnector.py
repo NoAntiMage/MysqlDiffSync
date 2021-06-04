@@ -1,9 +1,8 @@
 # coding: utf-8
 
 import pymysql
-from pymysql.cursors import DictCursor
 import json
-from dao.DatabaseConnector import DatabaseConnector
+from db.DatabaseConnector import DatabaseConnector
 from entity.Database import Database
 from entity.Table import Table
 from entity.Field import Field
@@ -12,12 +11,25 @@ TIME_OUT = 10
 
 
 class MysqlDatabaseConnector(DatabaseConnector):
-    # @Paramtype config read from db.json
+    """
+    :param config: obj deserialized from json file
+
+    MysqlDatabaseConnector
+    |
+    Database
+    |
+    Tables
+    |
+    Fields
+    """
     def __init__(self, config):
-        super(MysqlDatabaseConnector,self).__init__()
-        self.database = Database(config['db'])
-        self.__db = pymysql.connect(**config,connect_timeout=TIME_OUT)
-        self.__cursor = self.__db.cursor()
+        super(MysqlDatabaseConnector, self).__init__()
+        try:
+            self.database = Database(config['database'])
+            self.__db = pymysql.connect(**config, connect_timeout=TIME_OUT)
+            self.__cursor = self.__db.cursor()
+        except Exception as e:
+            print(e)
 
     @property
     def db(self):
@@ -29,7 +41,7 @@ class MysqlDatabaseConnector(DatabaseConnector):
 
     def get_version(self):
         self.__cursor.execute("""SELECT VERSION();""")
-        version = self.__cursor.fetchone()[0]
+        version = self.__cursor.fetchone()
         return version
 
     def fetch_tables(self):
@@ -41,6 +53,10 @@ class MysqlDatabaseConnector(DatabaseConnector):
             self.database.tables.append(a_table)
 
     def query_fields(self, a_table):
+        """
+        :param a_table:
+        :return [][]
+        """
         self.__cursor.execute("""SHOW FULL COLUMNS FROM `{}`;""".format(a_table))
         return self.cursor.fetchall()
 
@@ -64,13 +80,14 @@ class MysqlDatabaseConnector(DatabaseConnector):
 
 
 if __name__ == '__main__':
-    with open('/Users/wujimaster/data/MysqlDiffSync/db.json', 'r') as f:
+    with open('/Users/wujimaster/data/MysqlDiffSync/db.json', 'rb') as f:
         db_config = json.load(f)
     # print(db_config)
-    mysql = MysqlDatabaseConnector(db_config['target'])
-    foo = mysql.query_fields('account_info')
-    print(foo)
-
+    mysql = MysqlDatabaseConnector(db_config['source'])
+    mysql.fetch()
+    tables = mysql.database.tables
+    for table in tables:
+        print(table.name)
 
 
 

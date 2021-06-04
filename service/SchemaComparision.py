@@ -4,8 +4,8 @@ from service.TableComparision import TableComparison
 
 
 class SchemaComparison(object):
-    # @ParamType source dao.MysqlDatabaseConnector
-    # @ParamType target dao.MysqlDatabaseConnector
+    # @ParamType source db.MysqlDatabaseConnector
+    # @ParamType target db.MysqlDatabaseConnector
     def __init__(self, source, target):
         self.source = source
         self.target = target
