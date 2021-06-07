@@ -87,8 +87,10 @@ if __name__ == '__main__':
     mysql.fetch()
     tables = mysql.database.tables
     for table in tables:
+        print("---")
         print(table.name)
-
-
+        for f in table.fields:
+            print(f.__dict__)
+    print("\n\n\n")
 
 

@@ -11,7 +11,12 @@ from util.Configer import Configer
 
 
 class DataBaseSchemaSync(object):
-    def __init__(self, conf_path = None):
+    """
+    :type db_config: dict
+    :type source: entity.MysqlDatabaseConnector
+    :type target: entity.MysqlDatabaseConnector
+    """
+    def __init__(self, conf_path=None):
         try:
             configure = Configer(conf_path)
         except IOError:

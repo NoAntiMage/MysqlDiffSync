@@ -2,9 +2,9 @@
 
 
 class Field(object):
-    def __init__(self,table, *args):
+    def __init__(self, table, *args):
         self.__table = table
-        self.__field, \
+        self.__name, \
         self.__type, \
         self.__collation, \
         self.__null,\
@@ -24,12 +24,12 @@ class Field(object):
         self.__table = a_table
 
     @property
-    def field(self):
-        return self.__field
+    def name(self):
+        return self.__name
 
-    @field.setter
-    def field(self, a_field):
-        self.__field = a_field
+    @name.setter
+    def name(self, field_name):
+        self.__name = field_name
 
     @property
     def type(self):

@@ -2,8 +2,12 @@
 
 
 class TableComparison(object):
-    # @ParamType src entity.Table
-    # @ParamType dst entity.Table
+    """
+    :param src: entity.Table
+    :param dst entity.Table
+    :type src_fields: []entity.Field
+    :type dst_fields: []entity.Field
+    """
     def __init__(self, src, dst):
         self.src = src
         self.dst = dst
@@ -12,22 +16,26 @@ class TableComparison(object):
         self.src_fields_dict = self.__fields_to_dict(self.src_fields)
         self.dst_fields_dict = self.__fields_to_dict(self.dst_fields)
         self.diff = None
-        self.compare()
 
     def compare(self):
         new_fields = self.__new_fields()
         for field in new_fields:
             self.__new_field_statement(field)
 
-
     def __fields_to_dict(self, fields):
+        """
+        :param fields: []entity.Field
+        :rtype: dict[field_name] = Entity.Field
+        """
         a_dict = dict()
         for field in fields:
-            a_dict.setdefault(field.field, field)
+            a_dict.setdefault(field.name, field)
         return a_dict
 
-    # @ReturnType entity.Field list
     def __new_fields(self):
+        """
+        :rtype new_fields: []entity.Field
+        """
         new_fields = list()
         src_fields_list = self.src_fields_dict.keys()
         dst_fields_list = self.dst_fields_dict.keys()
@@ -36,12 +44,15 @@ class TableComparison(object):
             new_fields.append(self.src_fields_dict[field])
         return new_fields
 
-    # @ParamType entity.Field
     def __new_field_statement(self, field):
-        print('key:  ',field.key)
+        """
+        :param field: entity.Field
+        :return:
+        """
+        print('key:  ', field.key)
         sql = ''
         try:
-            sql = 'alter TABLE {0.table} add {0.field} {0.type} '.format(field)
+            sql = 'ALTER TABLE {0.table} ADD {0.name} {0.type} '.format(field)
             if field.collation is not None:
                 sql += 'COLLATE {0.collation} '.format(field)
 
