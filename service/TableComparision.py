@@ -1,5 +1,7 @@
 # coding: utf-8
 
+from service.FieldComparision import FieldComparision
+
 
 class TableComparison(object):
     """
@@ -18,9 +20,12 @@ class TableComparison(object):
         self.diff = None
 
     def compare(self):
-        new_fields = self.__new_fields()
-        for field in new_fields:
-            self.__new_field_statement(field)
+        # new_fields = self.__new_fields()
+        # for field in new_fields:
+        #     self.__new_field_statement(field)
+
+        exist_fields = self.__exist_fields()
+        self.__fields_compare(exist_fields)
 
     def __fields_to_dict(self, fields):
         """
@@ -52,7 +57,7 @@ class TableComparison(object):
         print('key:  ', field.key)
         sql = ''
         try:
-            sql = 'ALTER TABLE {0.table} ADD {0.name} {0.type} '.format(field)
+            sql = 'ALTER TABLE `{0.table}` ADD {0.name} {0.type} '.format(field)
             if field.collation is not None:
                 sql += 'COLLATE {0.collation} '.format(field)
 
@@ -87,16 +92,29 @@ class TableComparison(object):
         finally:
             if len(sql) != 0:
                 sql += ';'
-                with open('./update/{}.sql'.format(field.table), 'a') as f:
+                with open('./update/tables.sql'.format(field.table), 'a') as f:
                     f.write(sql)
                     f.write('\n')
             print(sql)
 
-
     def __exist_fields(self):
-        pass
-    # todo 获取相同的同名字段
+        """
+        :return exist_fields: []entity.Field
+        """
+        exist_fields = list()
+        src = self.src_fields_dict.keys()
+        dst = self.dst_fields_dict.keys()
+        exist_fields_list = list(set(src) & set(dst))
+        for field in exist_fields_list:
+            exist_fields.append(self.src_fields_dict[field])
+        return exist_fields
 
-    def __field_compare(self):
-        pass
-    # todo 比较相同字段的属性 FieldComparision
+    def __fields_compare(self, fields):
+        """
+        :param fields: []entity.Field
+        :return:
+        """
+        # print("compare table `{0}`".format(self.src.name))
+        for field in fields:
+            fc = FieldComparision(self.src_fields_dict[field.name], self.dst_fields_dict[field.name])
+            fc.compare()

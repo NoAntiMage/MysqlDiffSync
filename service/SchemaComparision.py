@@ -75,15 +75,11 @@ class SchemaComparison(object):
         #     print(table.name)
         return exist_tables
 
-    # @ ParamType table entity.Table
-    # @ ReturnType entity.TableDiff
-    # TODO 新字段 add，变更字段 modify
     def __tables_compare(self, tables):
         """
         :param tables: []entity.Table
         :return:
         """
-        tables_diff = list()
         for table in tables:
             tc = TableComparison(self.source_tables_dict[table.name], self.target_tables_dict[table.name])
             tc.compare()
