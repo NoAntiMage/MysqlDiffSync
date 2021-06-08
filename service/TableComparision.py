@@ -92,7 +92,7 @@ class TableComparison(object):
         finally:
             if len(sql) != 0:
                 sql += ';'
-                with open('./update/tables.sql'.format(field.table), 'a') as f:
+                with open('./update/add_fields.sql', 'a') as f:
                     f.write(sql)
                     f.write('\n')
             print(sql)

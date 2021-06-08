@@ -30,7 +30,7 @@ class FieldComparision(object):
         finally:
             if len(sql) != 0:
                 sql += ';'
-                with open('./update/alter.sql', 'a') as f:
+                with open('./update/alter_fields.sql', 'a') as f:
                     f.write(sql)
                     f.write('\n')
             print(sql)

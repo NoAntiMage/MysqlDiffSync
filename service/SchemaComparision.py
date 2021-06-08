@@ -56,7 +56,7 @@ class SchemaComparison(object):
         """
         new_tables = self.__new_tables()
         for table in new_tables:
-            with open('./update/{}.sql'.format(table.name), 'w') as f:
+            with open('./update/create_tables.sql', 'a') as f:
                 create_statement = self.source.query_create_table_statement(table.name)
                 f.write(create_statement)
 
