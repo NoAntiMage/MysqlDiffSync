@@ -20,9 +20,9 @@ class TableComparison(object):
         self.diff = None
 
     def compare(self):
-        # new_fields = self.__new_fields()
-        # for field in new_fields:
-        #     self.__new_field_statement(field)
+        new_fields = self.__new_fields()
+        for field in new_fields:
+            self.__new_field_statement(field)
 
         exist_fields = self.__exist_fields()
         self.__fields_compare(exist_fields)

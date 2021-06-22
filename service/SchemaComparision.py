@@ -59,6 +59,7 @@ class SchemaComparison(object):
             with open('./update/create_tables.sql', 'a') as f:
                 create_statement = self.source.query_create_table_statement(table.name)
                 f.write(create_statement)
+                f.write('\n')
 
     def __exist_tables(self):
         """

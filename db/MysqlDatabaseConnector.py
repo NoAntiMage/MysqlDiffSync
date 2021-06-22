@@ -80,7 +80,7 @@ class MysqlDatabaseConnector(DatabaseConnector):
 
 
 if __name__ == '__main__':
-    with open('/Users/wujimaster/data/MysqlDiffSync/db.json', 'rb') as f:
+    with open('/Users/wujimaster/data/MysqlDiffSync/db.json.back', 'rb') as f:
         db_config = json.load(f)
     # print(db_config)
     mysql = MysqlDatabaseConnector(db_config['source'])

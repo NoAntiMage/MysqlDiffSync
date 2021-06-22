@@ -1,6 +1,6 @@
 # coding: utf-8
 
-CONFIG_FILE_PATH = '/Users/wujimaster/data/MysqlDiffSync/db.json'
+CONFIG_FILE_PATH = '/Users/wujimaster/data/MysqlDiffSync/db.json.back'
 
 
 class Configer(object):
